@@ -7,10 +7,12 @@ const i18n = createI18n({
     fallbackLocale: 'en',
     messages: {
         en: {
-            title: 'Test query'
+            title: 'Test query',
+            posts: 'Posts'
         },
         ru: {
-            title: 'Тестовое задание'
+            title: 'Тестовое задание',
+            posts: 'Статьи'
         }
     }
 })
