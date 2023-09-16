@@ -1,4 +1,4 @@
-import UHeader from "./UHeader.vue";
+import MyHeader from "./MyHeader.vue";
 import ULang from "./ULang.vue";
 
-export default [UHeader, ULang];
+export default [MyHeader, ULang];

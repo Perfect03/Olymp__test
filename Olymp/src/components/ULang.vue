@@ -83,6 +83,7 @@ export default {
   width: 90%;
   left: 50%;
   transform: translate(-50%, 0);
+  background: white;
 .lang {
   transition: all 0.25s cubic-bezier(0.55, 0.085, 0.68, 0.53);
 &:hover {

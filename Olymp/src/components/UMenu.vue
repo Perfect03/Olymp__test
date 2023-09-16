@@ -15,6 +15,7 @@ export default {
 
 <style lang="scss" scoped>
 .menu {
-  
+  height: 100px;
+  background: #D9D9D9;
 }
 </style>

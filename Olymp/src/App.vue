@@ -1,11 +1,11 @@
 <script lang="ts">
 import { RouterLink, RouterView } from 'vue-router';
-import UHeader from '@/components/UHeader.vue';
+import MyHeader from '@/components/MyHeader.vue';
 import UMenu from './components/UMenu.vue';
 
 export default {
   components: {
-    UHeader,
+    MyHeader,
     UMenu
   },
 };
@@ -13,7 +13,7 @@ export default {
 
 <template>
   <div class="wrapper">
-  <u-header></u-header>
+  <my-header></my-header>
   <u-menu></u-menu>
   <RouterView />
   </div>
