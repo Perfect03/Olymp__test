@@ -1,18 +1,14 @@
 <script lang="ts">
-
-export default {
-};
+export default {};
 </script>
 
 <template>
-  <div class="menu">
-    
-  </div>
+  <div class="menu"></div>
 </template>
 
 <style lang="scss" scoped>
 .menu {
   height: 100px;
-  background: #D9D9D9;
+  background: #d9d9d9;
 }
 </style>

@@ -1,29 +1,31 @@
 <script lang="ts">
-import { i18n, $t } from '@/i18n/config';
+import type { PropType } from 'vue';
+import type { IPost } from '@/store/interfaces';
+import PostItem from './PostItem.vue';
 
 export default {
   components: {
-  }
+    PostItem,
+  },
+  props: {
+    posts: {
+      type: Array as PropType<IPost[]>,
+      required: true,
+    },
+  },
 };
 </script>
 
 <template>
-    <h2>{{ $t('posts') }}</h2>
-    <!-- <transition-group name="post-list">
-      <post-item
-        v-for="post in posts"
-        :post="post"
-        :key="post.id"
-        @remove="$emit('remove', post)"
-      >
-      </post-item>
-    </transition-group> -->
+  <transition-group name="post-list">
+    <post-item v-for="post in posts" :post="post" :key="post.id"> </post-item>
+  </transition-group>
 </template>
 
 <style lang="scss" scoped>
 h2 {
-    font-size: 18px;
-    line-height: 21.78px;
+  font-size: 18px;
+  line-height: 21.78px;
 }
 .post-list-item {
   display: inline-block;

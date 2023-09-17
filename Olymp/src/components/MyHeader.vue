@@ -1,11 +1,11 @@
 <script lang="ts">
-import ULang from '@/components/ULang.vue';
-import { i18n, $t } from '@/i18n/config';
+import ULang from '@/components/UI/ULang.vue';
+import { $t } from '@/i18n/config';
 
 export default {
   components: {
     ULang,
-  }
+  },
 };
 </script>
 
@@ -24,23 +24,23 @@ header {
   display: flex;
   justify-content: space-between;
   h1 {
-  font-size: 18px;
-  line-height: 21.78px;
-  &::before {
-    content: '<';
-  }
-  &::after {
-    content: '>';
-  }
-  :last-child {
-    &::first-letter {
-      color: #cf3939;
+    font-size: 18px;
+    line-height: 21.78px;
+    &::before {
+      content: '<';
+    }
+    &::after {
+      content: '>';
+    }
+    :last-child {
+      &::first-letter {
+        color: #cf3939;
+      }
+    }
+    .word {
+      display: inline-block;
+      text-transform: capitalize;
     }
   }
-  .word {
-    display: inline-block;
-    text-transform: capitalize;
-  }
-}
 }
 </style>

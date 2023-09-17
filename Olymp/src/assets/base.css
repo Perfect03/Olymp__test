@@ -59,17 +59,27 @@
   font-family: 'Inter', sans-serif;
 }
 
-ul, ul li {
-	list-style: none;
+ul,
+ul li {
+  list-style: none;
 }
 
 ul {
   padding-left: 0;
 }
 
+a:active, /* активная/посещенная ссылка */
+a:hover,  /* при наведении */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 button {
   font-size: inherit;
   line-height: inherit;
+  border: 0;
+  color: white;
 }
 
 body {

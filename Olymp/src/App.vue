@@ -1,36 +1,28 @@
 <script lang="ts">
 import { RouterLink, RouterView } from 'vue-router';
-import UMenu from '@/components/UMenu.vue';
+import MyMenu from '@/components/MyMenu.vue';
 import MyHeader from '@/components/MyHeader.vue';
 import axios from 'axios';
+import MyNavbar from './components/MyNavbar.vue';
 
 export default {
   components: {
     MyHeader,
-    UMenu,
+    MyMenu,
+    MyNavbar,
   },
-  methods: {
-    async fetchPosts() {
-      try {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
-      } catch (e) {
-        alert('Ошибка');
-      }
-    }
-  },
-  mounted() {
-    this.fetchPosts();
-  }
+  methods: {},
 };
 </script>
 
 <template>
   <div class="wrapper">
-  <my-header></my-header>
-  <main>
-    <u-menu></u-menu>
-    <RouterView />
-  </main>
+    <my-header></my-header>
+    <main>
+      <my-menu></my-menu>
+      <my-navbar></my-navbar>
+      <RouterView />
+    </main>
   </div>
 </template>
 
@@ -38,22 +30,22 @@ export default {
 .wrapper {
   height: 100%;
   h1 {
-  font-size: 18px;
-  line-height: 21.78px;
-  &::before {
-    content: '<';
-  }
-  &::after {
-    content: '>';
-  }
-  :last-child {
-    &::first-letter {
-      color: #cf3939;
+    font-size: 18px;
+    line-height: 21.78px;
+    &::before {
+      content: '<';
+    }
+    &::after {
+      content: '>';
+    }
+    :last-child {
+      &::first-letter {
+        color: #cf3939;
+      }
+    }
+    .word {
+      display: inline-block;
     }
   }
-  .word {
-    display: inline-block;
-  }
-}
 }
 </style>

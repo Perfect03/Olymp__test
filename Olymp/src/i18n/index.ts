@@ -1,4 +1,4 @@
-import type { Lang } from "@/interfacesTypes/types";
+import type { Lang } from '@/store/types';
 
 export const defaultLocale = 'ru';
 

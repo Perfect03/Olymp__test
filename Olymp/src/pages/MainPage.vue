@@ -1,18 +1,22 @@
 <script lang="ts">
-import { i18n, $t } from '@/i18n/config';
-import PostsList from '@/components/PostsList.vue';
+import UButton from '@/components/UI/UButton.vue';
 
 export default {
   components: {
-    PostsList,
+    UButton,
   },
 };
 </script>
 
 <template>
-    <posts-list></posts-list>
+  <div class="content">
+    <u-button @click="$router.push('/posts/')">{{ $t('more') }}</u-button>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-
+.content {
+  display: flex;
+  flex-direction: column;
+}
 </style>
