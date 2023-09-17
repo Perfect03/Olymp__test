@@ -56,6 +56,30 @@
   box-sizing: border-box;
   margin: 0;
   font-weight: normal;
+  font-family: 'Inter', sans-serif;
+}
+
+ul,
+ul li {
+  list-style: none;
+}
+
+ul {
+  padding-left: 0;
+}
+
+a:active, /* активная/посещенная ссылка */
+a:hover,  /* при наведении */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-size: inherit;
+  line-height: inherit;
+  border: 0;
+  color: white;
 }
 
 body {
@@ -66,21 +90,12 @@ body {
     color 0.5s,
     background-color 0.5s;
   line-height: 1.6;
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
-    sans-serif;
   font-size: 15px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  height: 100vh;
 }

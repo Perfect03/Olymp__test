@@ -1,10 +1,38 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import MainPage from '@/pages/MainPage.vue';
+import { createRouter, createWebHistory } from 'vue-router';
+import PostsPage from '@/pages/PostsPage.vue';
+import PostPage from '@/pages/PostPage.vue';
+import AuthorPage from '@/pages/AuthorPage.vue';
+
+const routes = [
+  {
+    path: '/',
+    component: MainPage,
+  },
+  {
+    path: '/posts/',
+    component: PostsPage,
+  },
+  {
+    path: '/posts/:id/author/',
+    component: AuthorPage,
+  },
+  {
+    path: '/posts/:id/',
+    component: PostPage,
+  },
+  {
+    path: '/posts/:id/author',
+    component: AuthorPage,
+  },
+];
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    
-  ]
-})
+  routes,
+  history: createWebHistory(),
+  scrollBehavior(to, from, savedPosition) {
+    return { top: 0 };
+  },
+});
 
-export default router
+export default router;

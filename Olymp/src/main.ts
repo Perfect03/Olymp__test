@@ -1,10 +1,32 @@
+import '@/assets/base.css';
 
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router';
+import store from '@/store';
+import directives from '@/directives';
+import components from '@/components/UI';
+import { i18n } from '@/i18n/config';
 
-const app = createApp(App)
+import { useI18n } from 'vue-i18n';
 
-app.use(router)
+const app = createApp(App, {
+  setup() {
+    const { t } = useI18n();
+    return { t };
+  },
+});
 
-app.mount('#app')
+components.forEach((component) => {
+  app.component(component.name, component);
+});
+
+directives.forEach((directive) => {
+  app.directive(directive.name, directive);
+});
+
+app.use(router).use(store).use(i18n).mount('#app');
+
+components.forEach((component) => {
+  app.component(component.name, component);
+});
