@@ -37,8 +37,8 @@ export interface IPostModuleState {
   page: number;
   limit: number;
   totalPages: number;
-  visitedPosts: Set<IPost>;
-  visitedUsers: Set<IUser>;
+  visitedPosts: Set<number>;
+  visitedUsers: Set<number>;
   users: IUser[];
   userIds: number[];
 }

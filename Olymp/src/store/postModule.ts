@@ -11,8 +11,8 @@ export const postModule = {
       page: 1,
       limit: 7,
       totalPages: 0,
-      visitedPosts: new Set<IPost>(),
-      visitedUsers: new Set<IUser>(),
+      visitedPosts: new Set<number>(),
+      visitedUsers: new Set<number>(),
       users: [] as IUser[],
       userIds: [] as number[],
     }) as IPostModuleState,
@@ -46,10 +46,10 @@ export const postModule = {
     setTotalPages(state: IPostModuleState, totalPages: number) {
       state.totalPages = totalPages;
     },
-    setVisitedUsers(state: IPostModuleState, visitedUser: IUser) {
+    setVisitedUsers(state: IPostModuleState, visitedUser: number) {
       state.visitedUsers.add(visitedUser);
     },
-    setVisitedPosts(state: IPostModuleState, visitedPost: IPost) {
+    setVisitedPosts(state: IPostModuleState, visitedPost: number) {
       state.visitedPosts.add(visitedPost);
     },
   },

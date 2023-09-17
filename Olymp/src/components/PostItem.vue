@@ -11,11 +11,15 @@ export default {
       type: Object as PropType<IPost>,
       required: true,
     },
+    visited: {
+      type: Boolean,
+      required: true,
+    },
   },
   methods: {
     toPost(post: IPost) {
       this.setCurrentPost(post.id);
-      this.setVisitedPosts(post);
+      this.setVisitedPosts(post.id);
       this.$router.push(`/posts/${post.id}/`);
     },
     ...mapMutations({
@@ -27,7 +31,7 @@ export default {
 </script>
 
 <template>
-  <div class="post">
+  <div class="post" :class="{ visited: visited }">
     <div class="top">
       <div class="title">{{ post.title }}</div>
       <div class="text">{{ post.body }}</div>
@@ -53,6 +57,9 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   padding: 12px;
+  &.visited {
+    background: #949494aa;
+  }
   .top {
     display: flex;
     flex-direction: column;

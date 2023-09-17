@@ -18,7 +18,7 @@ export default {
   methods: {
     toAuthor() {
       this.$router.push('author');
-      this.setVisitedUsers(this.post.user);
+      this.setVisitedUsers(this.post.user.id);
     },
     ...mapMutations({
       setVisitedUsers: 'post/setVisitedUsers',

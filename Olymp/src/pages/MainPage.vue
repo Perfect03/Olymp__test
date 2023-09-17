@@ -31,7 +31,7 @@ export default {
 <template>
   <div class="content">
     <div class="posts">
-      <posts-list :posts="posts"></posts-list>
+      <posts-list :posts="posts" :visitedPosts="visitedPosts"></posts-list>
     </div>
     <u-button @click="$router.push('/posts/')">{{ $t('more') }}</u-button>
   </div>
