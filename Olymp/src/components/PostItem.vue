@@ -13,12 +13,14 @@ export default {
     },
   },
   methods: {
-    toPost(id: number) {
-      this.setCurrentPost(id);
-      this.$router.push(`/posts/${id}/`);
+    toPost(post: IPost) {
+      this.setCurrentPost(post.id);
+      this.setVisitedPosts(post);
+      this.$router.push(`/posts/${post.id}/`);
     },
     ...mapMutations({
       setCurrentPost: 'post/setCurrentPost',
+      setVisitedPosts: 'post/setVisitedPosts',
     }),
   },
 };
@@ -35,7 +37,7 @@ export default {
         <span class="title">{{ $t('author') }}: </span>
         <span class="name">{{ post.user?.name }}</span>
       </div>
-      <div @click="toPost(post.id)" class="more">{{ $t('more') }}...</div>
+      <div @click="toPost(post)" class="more">{{ $t('more') }}...</div>
     </div>
   </div>
 </template>

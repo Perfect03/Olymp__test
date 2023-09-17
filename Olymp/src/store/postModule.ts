@@ -11,6 +11,8 @@ export const postModule = {
       page: 2,
       limit: 13,
       totalPages: 0,
+      visitedPosts: new Set<IPost>(),
+      visitedUsers: new Set<IUser>(),
       users: [] as IUser[],
     }) as IPostModuleState,
   getters: {
@@ -19,6 +21,12 @@ export const postModule = {
     },
     getCurrentPost(state: IPostModuleState) {
       return state.currentPost;
+    },
+    getVisitedUsers(state: IPostModuleState) {
+      return state.visitedUsers;
+    },
+    getVisitedPosts(state: IPostModuleState) {
+      return state.visitedPosts;
     },
   },
   mutations: {
@@ -37,6 +45,12 @@ export const postModule = {
     setTotalPages(state: IPostModuleState, totalPages: number) {
       state.totalPages = totalPages;
     },
+    setVisitedUsers(state: IPostModuleState, visitedUser: IUser) {
+      state.visitedUsers.add(visitedUser);
+    },
+    setVisitedPosts(state: IPostModuleState, visitedPost: IPost) {
+      state.visitedPosts.add(visitedPost);
+    },
   },
   actions: {
     async fetchPosts({ state, commit }: ActionContext<IPostModuleState, IPostModuleState>) {
@@ -49,18 +63,22 @@ export const postModule = {
           },
         });
         commit('setTotalPages', Math.ceil(response.headers['x-total-count'] / state.limit));
+        const userIds = [] as number[];
+        (response.data as IPost[]).forEach((el) => {
+          if (!userIds.includes(el.userId)) userIds.push(el.userId);
+        });
         Promise.all(
-          response.data.map(async (el: IPost) => {
-            let user = state.users.find((elem) => elem.id == el.userId);
-            if (user) el.user = user;
-            else {
-              user = (await axios.get(`https://jsonplaceholder.typicode.com/users/${el.userId}`))
-                .data;
-              state.users.push(user as IUser);
-            }
-            el.user = user;
+          userIds.map(async (id: number) => {
+            state.users.push(
+              (await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)).data
+            );
           })
-        ).then(() => commit('setPosts', response.data));
+        ).then(() => {
+          (response.data as IPost[]).map((el) => {
+            el.user = state.users.find((elem) => elem.id === el.userId);
+          });
+          commit('setPosts', response.data);
+        });
       } catch (e) {
         console.log(e);
         alert('Ошибка');

@@ -1,7 +1,13 @@
 <script lang="ts">
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 import UButton from '@/components/UI/UButton.vue';
 
 export default {
+  methods: {
+    ...mapActions({
+      fetchPosts: 'post/fetchPosts',
+    }),
+  },
   components: {
     UButton,
   },

@@ -1,6 +1,6 @@
 <script lang="ts">
 import { computed } from 'vue';
-import { mapState, mapGetters, useStore } from 'vuex';
+import { mapState, mapGetters, mapMutations, useStore } from 'vuex';
 import { usePost } from '@/hooks/usePost';
 import type { IStateRoot } from '@/store/interfaces';
 import { $t } from '@/i18n/config';
@@ -13,6 +13,15 @@ export default {
     }),
     ...mapGetters({
       posts: 'post/getPosts',
+    }),
+  },
+  methods: {
+    toAuthor() {
+      this.$router.push('author');
+      this.setVisitedUsers(this.post.user);
+    },
+    ...mapMutations({
+      setVisitedUsers: 'post/setVisitedUsers',
     }),
   },
   setup() {
@@ -34,7 +43,7 @@ export default {
     <div class="bottom">
       <div class="author">
         <span class="title">{{ $t('author') }}: </span>
-        <span @click="$router.push('author')" class="name">{{ post.user?.name }}</span>
+        <span @click="toAuthor()" class="name">{{ post.user?.name }}</span>
       </div>
     </div>
   </div>

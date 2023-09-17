@@ -5,7 +5,6 @@ import PostsList from '@/components/PostsList.vue';
 
 export default {
   methods: {
-    ...mapMutations({}),
     ...mapActions({
       fetchPosts: 'post/fetchPosts',
     }),
