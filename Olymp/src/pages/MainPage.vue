@@ -11,6 +11,9 @@ export default {
   components: {
     UButton,
   },
+  mounted() {
+    this.fetchPosts();
+  },
 };
 </script>
 

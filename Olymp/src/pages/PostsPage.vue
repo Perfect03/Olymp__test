@@ -7,6 +7,7 @@ export default {
   methods: {
     ...mapActions({
       fetchPosts: 'post/fetchPosts',
+      loadMorePosts: 'post/loadMorePosts'
     }),
   },
   components: {
@@ -29,11 +30,16 @@ export default {
 <template>
   <div class="content">
     <posts-list :posts="posts"></posts-list>
+    <div v-intersection="loadMorePosts" class="observer"></div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .content {
-  padding: 13px 5px;
+  padding: 13px 5px 3px 5px;
 }
+.observer {
+    height: 30px;
+    background: transparent;
+  }
 </style>

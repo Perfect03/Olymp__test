@@ -40,6 +40,7 @@ export interface IPostModuleState {
   visitedPosts: Set<IPost>;
   visitedUsers: Set<IUser>;
   users: IUser[];
+  userIds: number[]
 }
 
 export interface IStateRoot {
