@@ -84,5 +84,8 @@ export default {
       }
     }
   }
+  @media screen and (min-width: 515px) {
+    width: 61%;
+  }
 }
 </style>

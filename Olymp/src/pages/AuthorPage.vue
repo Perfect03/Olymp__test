@@ -51,5 +51,9 @@ ul {
       border-bottom: 1px solid #ea7c90;
     }
   }
+  @media screen and (min-width: 515px) {
+    width: 61%;
+    margin: auto;
+  }
 }
 </style>

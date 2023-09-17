@@ -42,5 +42,9 @@ header {
       text-transform: capitalize;
     }
   }
+  @media screen and (min-width: 515px) {
+    width: 61%;
+    margin: auto;
+  }
 }
 </style>

@@ -75,6 +75,12 @@ export default {
       display: -webkit-box;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      @media screen and (min-width: 515px) {
+        width: 63%;
+      }
+      @media screen and (min-width: 1024px) {
+        -webkit-line-clamp: 3;
+      }
     }
   }
   .bottom {
@@ -91,6 +97,12 @@ export default {
     .more {
       cursor: pointer;
     }
+  }
+  @media screen and (min-width: 515px) {
+    width: 60vw;
+  }
+  @media screen and (min-width: 1024px) {
+    height: 153px;
   }
 }
 </style>

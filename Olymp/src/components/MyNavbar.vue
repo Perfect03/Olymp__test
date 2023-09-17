@@ -45,5 +45,10 @@ export default {
       color: #b83232;
     }
   }
+  @media screen and (min-width: 515px) {
+    width: 61%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 </style>
