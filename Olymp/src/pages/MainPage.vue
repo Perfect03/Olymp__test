@@ -1,6 +1,8 @@
 <script lang="ts">
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
+import type { IStateRoot } from '@/store/interfaces';
 import UButton from '@/components/UI/UButton.vue';
+import PostsList from '@/components/PostsList.vue';
 
 export default {
   methods: {
@@ -10,15 +12,27 @@ export default {
   },
   components: {
     UButton,
+    PostsList,
   },
   mounted() {
     this.fetchPosts();
+  },
+  computed: {
+    ...mapState({
+      posts: (state: IStateRoot) => state.post.posts,
+    }),
+    ...mapGetters({
+      posts: 'post/getPosts',
+    }),
   },
 };
 </script>
 
 <template>
   <div class="content">
+    <div class="posts">
+      <posts-list :posts="posts"></posts-list>
+    </div>
     <u-button @click="$router.push('/posts/')">{{ $t('more') }}</u-button>
   </div>
 </template>
@@ -27,5 +41,9 @@ export default {
 .content {
   display: flex;
   flex-direction: column;
+  padding-bottom: 30px;
+  .posts {
+    pointer-events: none;
+  }
 }
 </style>

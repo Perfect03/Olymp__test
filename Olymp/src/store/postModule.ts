@@ -14,7 +14,7 @@ export const postModule = {
       visitedPosts: new Set<IPost>(),
       visitedUsers: new Set<IUser>(),
       users: [] as IUser[],
-      userIds: [] as number[]
+      userIds: [] as number[],
     }) as IPostModuleState,
   getters: {
     getPosts(state: IPostModuleState) {
@@ -86,36 +86,36 @@ export const postModule = {
         commit('setLoading', false);
       }
     },
-    async loadMorePosts({state, commit}: ActionContext<IPostModuleState, IPostModuleState>) {
+    async loadMorePosts({ state, commit }: ActionContext<IPostModuleState, IPostModuleState>) {
       try {
         console.log(4);
-          commit('setPage', state.page + 1)
-          const response = await axios.get('https://jsonplaceholder.typicode.com/posts', {
-              params: {
-                  _page: state.page,
-                  _limit: state.limit
-              }
+        commit('setPage', state.page + 1);
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts', {
+          params: {
+            _page: state.page,
+            _limit: state.limit,
+          },
+        });
+        commit('setTotalPages', Math.ceil(response.headers['x-total-count'] / state.limit));
+        (response.data as IPost[]).forEach((el) => {
+          if (!state.userIds.includes(el.userId)) state.userIds.push(el.userId);
+        });
+        Promise.all(
+          state.userIds.map(async (id: number) => {
+            state.users.push(
+              (await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)).data
+            );
+          })
+        ).then(() => {
+          (response.data as IPost[]).map((el) => {
+            el.user = state.users.find((elem) => elem.id === el.userId);
           });
-          commit('setTotalPages', Math.ceil(response.headers['x-total-count'] / state.limit));
-          (response.data as IPost[]).forEach((el) => {
-            if (!state.userIds.includes(el.userId)) state.userIds.push(el.userId);
-          });
-          Promise.all(
-            state.userIds.map(async (id: number) => {
-              state.users.push(
-                (await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)).data
-              );
-            })
-          ).then(() => {
-            (response.data as IPost[]).map((el) => {
-              el.user = state.users.find((elem) => elem.id === el.userId);
-            });
-            commit('setPosts', [...state.posts, ...response.data]);
-          });
+          commit('setPosts', [...state.posts, ...response.data]);
+        });
       } catch (e) {
-          console.log(e)
+        console.log(e);
       }
-  }
+    },
   },
   namespaced: true,
 };

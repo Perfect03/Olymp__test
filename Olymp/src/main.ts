@@ -4,7 +4,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from '@/store';
-import directives from "@/directives";
+import directives from '@/directives';
 import components from '@/components/UI';
 import { i18n } from '@/i18n/config';
 

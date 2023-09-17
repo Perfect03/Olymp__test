@@ -1,3 +1,3 @@
-import VIntersection from "./VIntersection";
+import VIntersection from './VIntersection';
 
 export default [VIntersection];

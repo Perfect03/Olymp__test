@@ -7,7 +7,7 @@ export default {
   methods: {
     ...mapActions({
       fetchPosts: 'post/fetchPosts',
-      loadMorePosts: 'post/loadMorePosts'
+      loadMorePosts: 'post/loadMorePosts',
     }),
   },
   components: {
@@ -39,7 +39,7 @@ export default {
   padding: 13px 5px 3px 5px;
 }
 .observer {
-    height: 30px;
-    background: transparent;
-  }
+  height: 30px;
+  background: transparent;
+}
 </style>

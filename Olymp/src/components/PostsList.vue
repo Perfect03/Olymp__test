@@ -23,10 +23,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-h2 {
-  font-size: 18px;
-  line-height: 21.78px;
-}
 .post-list-item {
   display: inline-block;
   margin-right: 10px;
