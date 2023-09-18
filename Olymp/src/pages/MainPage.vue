@@ -23,7 +23,7 @@ export default {
       limit: (state: IStateRoot) => state.post.limit,
     }),
     ...mapGetters({
-      posts: 'post/getPosts',
+      sortedPosts: 'post/getSortedPosts',
       getLimit: 'post/getLimit',
     }),
   },
@@ -33,7 +33,7 @@ export default {
 <template>
   <div class="content">
     <div class="posts">
-      <posts-list :posts="posts" :visitedPosts="visitedPosts"></posts-list>
+      <posts-list :posts="sortedPosts" :visitedPosts="visitedPosts"></posts-list>
     </div>
     <u-button @click="$router.push('/posts/')" class="more">{{ $t('more') }}</u-button>
   </div>

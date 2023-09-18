@@ -1,6 +1,7 @@
 import type { ActionContext } from 'vuex/types/index.js';
-import type { IPost, IUser, IPostModuleState } from './interfaces';
+import type { IPost, IUser, IPostModuleState, ISortOption } from './interfaces';
 import axios from 'axios';
+import type { sortBy } from './types';
 
 export const postModule = {
   state: () =>
@@ -15,8 +16,18 @@ export const postModule = {
       visitedUsers: new Set<number>(),
       users: [] as IUser[],
       userIds: [] as number[],
+      sortOptions: [
+          {value: 'title', name: 'sortTitle'},
+          {value: 'body', name: 'sortBody'},
+      ] as ISortOption[],
+      selectedSort: '' as sortBy,
     }) as IPostModuleState,
   getters: {
+    getSortedPosts(state: IPostModuleState) {
+      return [...state.posts].sort((post1, post2) =>
+        post1[state.selectedSort]?.localeCompare(post2[state.selectedSort])
+      );
+    },
     getPosts(state: IPostModuleState) {
       return state.posts;
     },
@@ -34,6 +45,12 @@ export const postModule = {
     },
     getLimit(state: IPostModuleState) {
       return state.limit;
+    },
+    getSelectedSort(state: IPostModuleState) {
+      return state.selectedSort;
+    },
+    getSortOptions(state: IPostModuleState) {
+      return state.sortOptions;
     },
   },
   mutations: {
@@ -57,6 +74,9 @@ export const postModule = {
     },
     setVisitedPosts(state: IPostModuleState, visitedPost: number) {
       state.visitedPosts.add(visitedPost);
+    },
+    setSelectedSort(state: IPostModuleState, sort: sortBy) {
+      state.selectedSort = sort;
     },
   },
   actions: {

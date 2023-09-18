@@ -17,6 +17,9 @@ const i18n = createI18n({
       website: 'Website',
       review: 'Review',
       back: 'Back',
+      sort: 'Sort by',
+      sortTitle: 'Title',
+      sortBody: 'Body'
     },
     ru: {
       title: 'Тестовое задание',
@@ -29,6 +32,9 @@ const i18n = createI18n({
       website: 'Сайт',
       review: 'Просмотр',
       back: 'Назад',
+      sort: 'Сортировка',
+      sortTitle: 'По названию',
+      sortBody: 'По содержимому'
     },
   },
 });

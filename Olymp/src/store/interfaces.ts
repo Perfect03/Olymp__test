@@ -1,3 +1,5 @@
+import type { sortBy } from "./types";
+
 export interface IPost {
   id: number;
   title: string;
@@ -41,8 +43,15 @@ export interface IPostModuleState {
   visitedUsers: Set<number>;
   users: IUser[];
   userIds: number[];
+  sortOptions: ISortOption[];
+  selectedSort: sortBy;
 }
 
 export interface IStateRoot {
   post: IPostModuleState;
+}
+
+export interface ISortOption {
+  value: sortBy;
+  name: string;
 }
