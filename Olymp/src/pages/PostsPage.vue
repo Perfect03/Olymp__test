@@ -1,5 +1,5 @@
 <script lang="ts">
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 import type { IStateRoot } from '@/store/interfaces';
 import PostsList from '@/components/PostsList.vue';
 

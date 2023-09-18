@@ -29,6 +29,12 @@ export const postModule = {
     getVisitedPosts(state: IPostModuleState) {
       return state.visitedPosts;
     },
+    getIsPostsLoading(state: IPostModuleState) {
+      return state.isPostsLoading;
+    },
+    getLimit(state: IPostModuleState) {
+      return state.limit;
+    },
   },
   mutations: {
     setPosts(state: IPostModuleState, posts: IPost[]) {
@@ -83,7 +89,9 @@ export const postModule = {
         console.log(e);
         alert('Ошибка');
       } finally {
-        commit('setLoading', false);
+        setTimeout(() => {
+          commit('setLoading', false);
+        }, 3000);
       }
     },
     async loadMorePosts({ state, commit }: ActionContext<IPostModuleState, IPostModuleState>) {
