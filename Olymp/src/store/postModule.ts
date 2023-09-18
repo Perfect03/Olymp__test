@@ -7,25 +7,25 @@ export const postModule = {
   state: () =>
     ({
       posts: [] as IPost[],
-      currentPost: 0,
+      currentPost: {} as IPost,
       isPostsLoading: false,
       page: 1,
       limit: 7,
       totalPages: 0,
-      visitedPosts: new Set<number>(),
-      visitedUsers: new Set<number>(),
+      visitedPosts: [] as IPost[],
+      visitedUsers: [] as IUser[],
       users: [] as IUser[],
       userIds: [] as number[],
       sortOptions: [
-          {value: 'title', name: 'sortTitle'},
-          {value: 'body', name: 'sortBody'},
+        { value: 'title', name: 'sortTitle' },
+        { value: 'body', name: 'sortBody' },
       ] as ISortOption[],
       selectedSort: '' as sortBy,
     }) as IPostModuleState,
   getters: {
     getSortedPosts(state: IPostModuleState) {
-      return [...state.posts].sort((post1, post2) =>
-        post1[state.selectedSort]?.localeCompare(post2[state.selectedSort])
+      return [...state.posts].sort(
+        (post1, post2) => post1[state.selectedSort]?.localeCompare(post2[state.selectedSort])
       );
     },
     getPosts(state: IPostModuleState) {
@@ -57,7 +57,7 @@ export const postModule = {
     setPosts(state: IPostModuleState, posts: IPost[]) {
       state.posts = posts;
     },
-    setCurrentPost(state: IPostModuleState, currentPost: number) {
+    setCurrentPost(state: IPostModuleState, currentPost: IPost) {
       state.currentPost = currentPost;
     },
     setLoading(state: IPostModuleState, bool: Boolean) {
@@ -69,11 +69,17 @@ export const postModule = {
     setTotalPages(state: IPostModuleState, totalPages: number) {
       state.totalPages = totalPages;
     },
-    setVisitedUsers(state: IPostModuleState, visitedUser: number) {
-      state.visitedUsers.add(visitedUser);
+    setVisitedUsers(state: IPostModuleState, visitedUser: IUser) {
+      const findUser = state.visitedUsers.find(
+        (el) => JSON.stringify(el) == JSON.stringify(visitedUser)
+      );
+      if (!findUser) state.visitedUsers.push(visitedUser);
     },
-    setVisitedPosts(state: IPostModuleState, visitedPost: number) {
-      state.visitedPosts.add(visitedPost);
+    setVisitedPosts(state: IPostModuleState, visitedPost: IPost) {
+      const findPost = state.visitedPosts.find(
+        (el) => JSON.stringify(el) == JSON.stringify(visitedPost)
+      );
+      if (!findPost) state.visitedPosts.push(visitedPost);
     },
     setSelectedSort(state: IPostModuleState, sort: sortBy) {
       state.selectedSort = sort;

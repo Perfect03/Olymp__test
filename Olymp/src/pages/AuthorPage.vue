@@ -1,56 +1,33 @@
 <script lang="ts">
-import { computed } from 'vue';
-import { useStore } from 'vuex';
-import { usePost } from '@/hooks/usePost';
+import { mapState, mapGetters } from 'vuex';
+import type { IPost, IStateRoot } from '@/store/interfaces';
 import { $t } from '@/i18n/config';
+import AuthorItem from '@/components/AuthorItem.vue';
 
 export default {
-  setup() {
-    const store = useStore();
-    const posts = computed(() => store.state.post.posts);
-    const currentPost = computed(() => store.state.post.currentPost);
-    const { post } = usePost(posts.value, currentPost.value);
-    return { post };
+  components: {
+    AuthorItem,
+  },
+  computed: {
+    ...mapState({
+      currentPost: (state: IStateRoot) => state.post.currentPost,
+    }),
+    ...mapGetters({
+      currentPost: 'post/getCurrentPost',
+    }),
   },
 };
 </script>
 
 <template>
-  <ul>
-    <li>
-      <span class="key">{{ $t('username') }}: </span
-      ><span class="value">{{ post.user?.username }}</span>
-    </li>
-    <li>
-      <span class="key">{{ $t('name') }}: </span><span class="value">{{ post.user?.name }}</span>
-    </li>
-    <li>
-      <span class="key">{{ $t('email') }}: </span
-      ><span class="value link">{{ post.user?.email }}</span>
-    </li>
-    <li>
-      <span class="key">{{ $t('website') }}: </span
-      ><span class="value link"
-        ><a target="_blank" :href="`${post.user?.website}`">{{ post.user?.website }}</a></span
-      >
-    </li>
-  </ul>
+  <div class="container">
+    <author-item :user="(currentPost as IPost).user"></author-item>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-ul {
+.container {
   padding: 20px;
-  li {
-    margin-bottom: 7px;
-    .key {
-    }
-    .value {
-      color: #ea7c90;
-    }
-    .link {
-      border-bottom: 1px solid #ea7c90;
-    }
-  }
   @media screen and (min-width: 515px) {
     width: 61%;
     margin: auto;

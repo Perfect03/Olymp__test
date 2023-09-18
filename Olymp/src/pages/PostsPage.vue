@@ -21,7 +21,7 @@ export default {
       posts: (state: IStateRoot) => state.post.posts,
     }),
     ...mapGetters({
-      sortedPosts: "post/getSortedPosts",
+      sortedPosts: 'post/getSortedPosts',
     }),
   },
 };

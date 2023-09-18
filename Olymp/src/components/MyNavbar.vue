@@ -36,14 +36,21 @@ export default {
 
 <template>
   <div class="navbar">
-    <div class="left"><div class="paths">
-      <div v-for="path in paths.slice(0, currentRoute)" :key="path">> {{ $t(`${path}`) }}</div>
+    <div class="left">
+      <div class="paths">
+        <div v-for="path in paths.slice(0, currentRoute)" :key="path">> {{ $t(`${path}`) }}</div>
+      </div>
+      <span v-if="currentRoute" @click="$router.go(-1)" class="back">&lt; {{ $t('back') }}</span>
     </div>
-    <span v-if="currentRoute" @click="$router.go(-1)" class="back">&lt; {{ $t('back') }}</span></div>
-    <div class="right"><u-select v-show="currentRoute == 1" :model-value="selectedSort"
+    <div class="right">
+      <u-select
+        v-show="currentRoute == 1"
+        :model-value="selectedSort"
         @update:model-value="setSelectedSort"
-        :options="sortOptions">
-      </u-select></div>
+        :options="sortOptions"
+      >
+      </u-select>
+    </div>
   </div>
 </template>
 

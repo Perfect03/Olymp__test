@@ -17,19 +17,12 @@ export default {
   },
   methods: {
     toAuthor() {
+      this.setVisitedUsers(this.currentPost.user);
       this.$router.push('author');
-      this.setVisitedUsers(this.post.user.id);
     },
     ...mapMutations({
       setVisitedUsers: 'post/setVisitedUsers',
     }),
-  },
-  setup() {
-    const store = useStore();
-    const posts = computed(() => store.state.post.posts);
-    const currentPost = computed(() => store.state.post.currentPost);
-    const { post } = usePost(posts.value, currentPost.value);
-    return { post };
   },
 };
 </script>
@@ -37,13 +30,13 @@ export default {
 <template>
   <div class="post">
     <div class="top">
-      <div class="title">{{ post.title }}</div>
-      <div class="text">{{ post.body }}</div>
+      <div class="title">{{ currentPost.title }}</div>
+      <div class="text">{{ currentPost.body }}</div>
     </div>
     <div class="bottom">
       <div class="author">
         <span class="title">{{ $t('author') }}: </span>
-        <span @click="toAuthor()" class="name">{{ post.user?.name }}</span>
+        <span @click="toAuthor()" class="name">{{ currentPost.user?.name }}</span>
       </div>
     </div>
   </div>

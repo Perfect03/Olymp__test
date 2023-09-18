@@ -1,13 +1,11 @@
 <script lang="ts">
 import { $t } from '@/i18n/config';
 
-export default {
-};
+export default {};
 </script>
 
 <template>
-  <div class="post">
-  </div>
+  <div class="post"></div>
 </template>
 
 <style lang="scss" scoped>
@@ -19,16 +17,16 @@ export default {
   height: 253px;
   animation: pulse-bg 1s infinite;
   @keyframes pulse-bg {
-  0% {
-    background-color: #eee;
+    0% {
+      background-color: #eee;
+    }
+    50% {
+      background-color: #eaeaea42;
+    }
+    100% {
+      background-color: #eee;
+    }
   }
-  50% {
-    background-color: #eaeaea42;
-  }
-  100% {
-    background-color: #eee;
-  }
-  } 
   @media screen and (min-width: 515px) {
     width: 60vw;
   }

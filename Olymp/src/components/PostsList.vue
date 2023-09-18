@@ -3,12 +3,12 @@ import type { PropType } from 'vue';
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 import type { IPost, IStateRoot } from '@/store/interfaces';
 import PostItem from '@/components/PostItem.vue';
-import postItemSkeleton from '@/components/PostItemSkeleton.vue'
+import postItemSkeleton from '@/components/PostItemSkeleton.vue';
 
 export default {
   components: {
     PostItem,
-    postItemSkeleton
+    postItemSkeleton,
   },
   methods: {},
   props: {
@@ -33,23 +33,22 @@ export default {
 </script>
 
 <template>
-    <div v-if="!getIsPostsLoading">
+  <div v-if="!getIsPostsLoading">
     <transition-group name="user-list">
-    <post-item
-      v-for="post in posts"
-      :post="post"
-      :visited="(visitedPosts as Set<number>).has(post.id)"
-      :key="post.id"
-    >
-    </post-item>
+      <post-item
+        v-for="post in posts"
+        :post="post"
+        :visited="
+          (visitedPosts as IPost[]).find((el) => JSON.stringify(el) == JSON.stringify(post))
+        "
+        :key="post.id"
+      >
+      </post-item>
     </transition-group>
-    </div>
-    <div v-else>
-    <post-item-skeleton 
-      v-for="n in limit"
-      :key="n">
-    </post-item-skeleton>
-    </div>
+  </div>
+  <div v-else>
+    <post-item-skeleton v-for="n in limit" :key="n"> </post-item-skeleton>
+  </div>
 </template>
 
 <style lang="scss" scoped>

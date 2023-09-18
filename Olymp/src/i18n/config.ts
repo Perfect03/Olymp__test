@@ -19,7 +19,8 @@ const i18n = createI18n({
       back: 'Back',
       sort: 'Sort by',
       sortTitle: 'Title',
-      sortBody: 'Body'
+      sortBody: 'Body',
+      previouslyVisited: 'Previously visited',
     },
     ru: {
       title: 'Тестовое задание',
@@ -34,7 +35,8 @@ const i18n = createI18n({
       back: 'Назад',
       sort: 'Сортировка',
       sortTitle: 'По названию',
-      sortBody: 'По содержимому'
+      sortBody: 'По содержимому',
+      previouslyVisited: 'Посещенные ранее',
     },
   },
 });
