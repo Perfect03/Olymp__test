@@ -2,11 +2,13 @@
 import type { PropType } from 'vue';
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 import type { IPost, IStateRoot } from '@/store/interfaces';
-import PostItem from './PostItem.vue';
+import PostItem from '@/components/PostItem.vue';
+import postItemSkeleton from '@/components/PostItemSkeleton.vue';
 
 export default {
   components: {
     PostItem,
+    postItemSkeleton,
   },
   methods: {},
   props: {
@@ -17,44 +19,53 @@ export default {
   },
   computed: {
     ...mapState({
-      posts: (state: IStateRoot) => state.post.posts,
       visitedPosts: (state: IStateRoot) => state.post.visitedPosts,
+      isPostsLoading: (state: IStateRoot) => state.post.isPostsLoading,
+      limit: (state: IStateRoot) => state.post.limit,
     }),
     ...mapGetters({
-      posts: 'post/getPosts',
       getVisitedPosts: 'post/getVisitedPosts',
+      getIsPostsLoading: 'post/getIsPostsLoading',
+      getLimit: 'post/getLimit',
     }),
   },
 };
 </script>
 
 <template>
-  <transition-group name="post-list">
-    <post-item
-      v-for="post in posts"
-      :post="post"
-      :visited="(visitedPosts as Set<number>).has(post.id)"
-      :key="post.id"
-    >
-    </post-item>
-  </transition-group>
+  <div v-if="!getIsPostsLoading">
+    <transition-group name="user-list">
+      <post-item
+        v-for="post in posts"
+        :post="post"
+        :visited="
+          (visitedPosts as IPost[]).find((el) => JSON.stringify(el) == JSON.stringify(post))
+        "
+        :key="post.id"
+      >
+      </post-item>
+    </transition-group>
+  </div>
+  <div v-else>
+    <post-item-skeleton v-for="n in limit" :key="n"> </post-item-skeleton>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-.post-list-item {
+.user-list-item {
   display: inline-block;
   margin-right: 10px;
 }
-.post-list-enter-active,
-.post-list-leave-active {
+.user-list-enter-active,
+.user-list-leave-active {
   transition: all 0.4s ease;
 }
-.post-list-enter-from,
-.post-list-leave-to {
+.user-list-enter-from,
+.user-list-leave-to {
   opacity: 0;
   transform: translateX(130px);
 }
-.post-list-move {
+.user-list-move {
   transition: transform 0.4s ease;
 }
 </style>

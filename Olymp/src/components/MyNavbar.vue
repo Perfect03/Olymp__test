@@ -1,26 +1,56 @@
 <script lang="ts">
-import { i18n, $t } from '@/i18n/config';
+import USelect from '@/components/UI/USelect.vue';
+import { mapState, mapGetters, mapMutations } from 'vuex';
+import type { IStateRoot } from '@/store/interfaces';
+import { $t } from '@/i18n/config';
 
 export default {
+  components: {
+    USelect,
+  },
   data() {
     return {
       paths: ['posts', 'review', 'author'],
     };
   },
+  methods: {
+    ...mapMutations({
+      setSelectedSort: 'post/setSelectedSort',
+    }),
+  },
   computed: {
     currentRoute: function () {
       return this.$route.path.split('/').filter(Boolean).length;
     },
+    ...mapState({
+      selectedSort: (state: IStateRoot) => state.post.selectedSort,
+      sortOptions: (state: IStateRoot) => state.post.sortOptions,
+    }),
+    ...mapGetters({
+      selectedSort: 'post/getSelectedSort',
+      sortOptions: 'post/getSortOptions',
+    }),
   },
 };
 </script>
 
 <template>
   <div class="navbar">
-    <div class="paths">
-      <div v-for="path in paths.slice(0, currentRoute)" :key="path">> {{ $t(`${path}`) }}</div>
+    <div class="left">
+      <div class="paths">
+        <div v-for="path in paths.slice(0, currentRoute)" :key="path">> {{ $t(`${path}`) }}</div>
+      </div>
+      <span v-if="currentRoute" @click="$router.go(-1)" class="back">&lt; {{ $t('back') }}</span>
     </div>
-    <span v-if="currentRoute" @click="$router.go(-1)" class="back">&lt; {{ $t('back') }}</span>
+    <div class="right">
+      <u-select
+        v-show="currentRoute == 1"
+        :model-value="selectedSort"
+        @update:model-value="setSelectedSort"
+        :options="sortOptions"
+      >
+      </u-select>
+    </div>
   </div>
 </template>
 
@@ -28,6 +58,9 @@ export default {
 .navbar {
   margin-top: 13px;
   margin-left: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   .paths {
     display: flex;
     font-size: 18px;

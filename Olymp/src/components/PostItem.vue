@@ -18,8 +18,8 @@ export default {
   },
   methods: {
     toPost(post: IPost) {
-      this.setCurrentPost(post.id);
-      this.setVisitedPosts(post.id);
+      this.setCurrentPost(post);
+      this.setVisitedPosts(post);
       this.$router.push(`/posts/${post.id}/`);
     },
     ...mapMutations({

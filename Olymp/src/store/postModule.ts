@@ -1,22 +1,33 @@
 import type { ActionContext } from 'vuex/types/index.js';
-import type { IPost, IUser, IPostModuleState } from './interfaces';
+import type { IPost, IUser, IPostModuleState, ISortOption } from './interfaces';
 import axios from 'axios';
+import type { sortBy } from './types';
 
 export const postModule = {
   state: () =>
     ({
       posts: [] as IPost[],
-      currentPost: 0,
+      currentPost: {} as IPost,
       isPostsLoading: false,
       page: 1,
       limit: 7,
       totalPages: 0,
-      visitedPosts: new Set<number>(),
-      visitedUsers: new Set<number>(),
+      visitedPosts: [] as IPost[],
+      visitedUsers: [] as IUser[],
       users: [] as IUser[],
       userIds: [] as number[],
+      sortOptions: [
+        { value: 'title', name: 'sortTitle' },
+        { value: 'body', name: 'sortBody' },
+      ] as ISortOption[],
+      selectedSort: '' as sortBy,
     }) as IPostModuleState,
   getters: {
+    getSortedPosts(state: IPostModuleState) {
+      return [...state.posts].sort(
+        (post1, post2) => post1[state.selectedSort]?.localeCompare(post2[state.selectedSort])
+      );
+    },
     getPosts(state: IPostModuleState) {
       return state.posts;
     },
@@ -29,12 +40,24 @@ export const postModule = {
     getVisitedPosts(state: IPostModuleState) {
       return state.visitedPosts;
     },
+    getIsPostsLoading(state: IPostModuleState) {
+      return state.isPostsLoading;
+    },
+    getLimit(state: IPostModuleState) {
+      return state.limit;
+    },
+    getSelectedSort(state: IPostModuleState) {
+      return state.selectedSort;
+    },
+    getSortOptions(state: IPostModuleState) {
+      return state.sortOptions;
+    },
   },
   mutations: {
     setPosts(state: IPostModuleState, posts: IPost[]) {
       state.posts = posts;
     },
-    setCurrentPost(state: IPostModuleState, currentPost: number) {
+    setCurrentPost(state: IPostModuleState, currentPost: IPost) {
       state.currentPost = currentPost;
     },
     setLoading(state: IPostModuleState, bool: Boolean) {
@@ -46,11 +69,20 @@ export const postModule = {
     setTotalPages(state: IPostModuleState, totalPages: number) {
       state.totalPages = totalPages;
     },
-    setVisitedUsers(state: IPostModuleState, visitedUser: number) {
-      state.visitedUsers.add(visitedUser);
+    setVisitedUsers(state: IPostModuleState, visitedUser: IUser) {
+      const findUser = state.visitedUsers.find(
+        (el) => JSON.stringify(el) == JSON.stringify(visitedUser)
+      );
+      if (!findUser) state.visitedUsers.push(visitedUser);
     },
-    setVisitedPosts(state: IPostModuleState, visitedPost: number) {
-      state.visitedPosts.add(visitedPost);
+    setVisitedPosts(state: IPostModuleState, visitedPost: IPost) {
+      const findPost = state.visitedPosts.find(
+        (el) => JSON.stringify(el) == JSON.stringify(visitedPost)
+      );
+      if (!findPost) state.visitedPosts.push(visitedPost);
+    },
+    setSelectedSort(state: IPostModuleState, sort: sortBy) {
+      state.selectedSort = sort;
     },
   },
   actions: {
@@ -83,7 +115,9 @@ export const postModule = {
         console.log(e);
         alert('Ошибка');
       } finally {
-        commit('setLoading', false);
+        setTimeout(() => {
+          commit('setLoading', false);
+        }, 3000);
       }
     },
     async loadMorePosts({ state, commit }: ActionContext<IPostModuleState, IPostModuleState>) {

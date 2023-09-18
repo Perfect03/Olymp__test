@@ -20,9 +20,11 @@ export default {
   computed: {
     ...mapState({
       posts: (state: IStateRoot) => state.post.posts,
+      limit: (state: IStateRoot) => state.post.limit,
     }),
     ...mapGetters({
-      posts: 'post/getPosts',
+      sortedPosts: 'post/getSortedPosts',
+      getLimit: 'post/getLimit',
     }),
   },
 };
@@ -31,9 +33,9 @@ export default {
 <template>
   <div class="content">
     <div class="posts">
-      <posts-list :posts="posts" :visitedPosts="visitedPosts"></posts-list>
+      <posts-list :posts="sortedPosts" :visitedPosts="visitedPosts"></posts-list>
     </div>
-    <u-button @click="$router.push('/posts/')">{{ $t('more') }}</u-button>
+    <u-button @click="$router.push('/posts/')" class="more">{{ $t('more') }}</u-button>
   </div>
 </template>
 
@@ -42,6 +44,8 @@ export default {
   display: flex;
   flex-direction: column;
   padding-bottom: 30px;
+  justify-content: flex-end;
+  min-height: 100vh;
   .posts {
     pointer-events: none;
   }

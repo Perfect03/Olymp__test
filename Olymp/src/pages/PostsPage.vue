@@ -1,5 +1,5 @@
 <script lang="ts">
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 import type { IStateRoot } from '@/store/interfaces';
 import PostsList from '@/components/PostsList.vue';
 
@@ -21,7 +21,7 @@ export default {
       posts: (state: IStateRoot) => state.post.posts,
     }),
     ...mapGetters({
-      posts: 'post/getPosts',
+      sortedPosts: 'post/getSortedPosts',
     }),
   },
 };
@@ -29,7 +29,7 @@ export default {
 
 <template>
   <div class="content">
-    <posts-list :posts="posts"></posts-list>
+    <posts-list :posts="sortedPosts"></posts-list>
     <div v-intersection="loadMorePosts" class="observer"></div>
   </div>
 </template>
