@@ -5,6 +5,7 @@ export default {};
 <template>
   <button>
     <slot></slot>
+    <!-- Слот для ввода текста в кнопку (вместо прокидывания пропсом) -->
   </button>
 </template>
 

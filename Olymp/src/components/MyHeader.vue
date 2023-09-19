@@ -12,6 +12,8 @@ export default {
 <template>
   <header>
     <h1>
+      <!-- текст заголовка разбивается на массив и каждое слово выводится поочередно,
+      чтобы первую букву последнего слова стилизовать другим цветом -->
       <div v-for="word in $t('title').split(' ')" :key="word" class="word">{{ word }}&nbsp;</div>
     </h1>
     <u-lang></u-lang>

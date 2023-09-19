@@ -7,19 +7,25 @@ import AuthorItem from './AuthorItem.vue';
 
 export default {
   components: {
+    // регистрируем компонент карточки автора
+    // карточка поста здесь согласно макету выглядит иначе, поэтому её вёрстка прописана заново
     AuthorItem,
   },
   methods: {
     toPost(post: IPost) {
+      // функция перехода на пост (думаю, логично разрешать переход
+      // и с этой панели, иначе особого смысла в этой панели нет)
       this.setCurrentPost(post.id);
       this.$router.push(`/posts/${post.id}/`);
     },
     ...mapMutations({
+      // нужно в случае перехода вновь на одну из уже посещенных страниц
+      //, т.к. из переменной currentPost берутся данные на странице просмотра поста
       setCurrentPost: 'post/setCurrentPost',
-      setVisitedPosts: 'post/setVisitedPosts',
     }),
   },
   computed: {
+    // доступ к текущим постам и пользователям из state
     ...mapState({
       visitedPosts: (state: IStateRoot) => state.post.visitedPosts,
       visitedUsers: (state: IStateRoot) => state.post.visitedUsers,
@@ -36,6 +42,8 @@ export default {
   <div class="menu">
     <div class="container">
       <h2>{{ $t('previouslyVisited') }}</h2>
+      <!-- В зависимости от текущей страницы выводятся посещенные статьи либо авторы
+      Возможно, логику проверки текущей страницы можно было реализовать грамотнее -->
       <div v-if="$route.path.includes('author')" class="authors">
         <div v-for="author in visitedUsers" :key="author.id" class="authorContainer">
           <author-item :user="author"></author-item>

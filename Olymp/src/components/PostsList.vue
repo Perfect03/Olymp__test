@@ -11,6 +11,7 @@ export default {
     postItemSkeleton,
   },
   methods: {},
+  // компонента-список постов, принимающая в props данные обо всех постах
   props: {
     posts: {
       type: Array as PropType<IPost[]>,
@@ -19,6 +20,9 @@ export default {
   },
   computed: {
     ...mapState({
+      // переменная visitedPosts нужна для выделения уже посещённых постов;
+      // isPostsLoading - для отображения loader-а;
+      // limit - по сути лишь для определения количества "загружающихся постов" во время loading-а
       visitedPosts: (state: IStateRoot) => state.post.visitedPosts,
       isPostsLoading: (state: IStateRoot) => state.post.isPostsLoading,
       limit: (state: IStateRoot) => state.post.limit,
@@ -39,7 +43,7 @@ export default {
         v-for="post in posts"
         :post="post"
         :visited="
-          (visitedPosts as IPost[]).find((el) => JSON.stringify(el) == JSON.stringify(post))
+          (visitedPosts as IPost[]).includes((el) => JSON.stringify(el) == JSON.stringify(post))
         "
         :key="post.id"
       >

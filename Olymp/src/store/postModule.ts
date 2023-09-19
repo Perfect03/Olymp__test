@@ -88,15 +88,17 @@ export const postModule = {
   actions: {
     async fetchPosts({ state, commit }: ActionContext<IPostModuleState, IPostModuleState>) {
       try {
-        commit('setLoading', true);
+        commit('setLoading', true); // ставим loader
         const response = await axios.get('https://jsonplaceholder.typicode.com/posts', {
           params: {
             _page: state.page,
             _limit: state.limit,
-          },
+          }, // получение данных
         });
-        commit('setTotalPages', Math.ceil(response.headers['x-total-count'] / state.limit));
+        commit('setTotalPages', Math.ceil(response.headers['x-total-count'] / state.limit)); // на случай пагинации
         (response.data as IPost[]).forEach((el) => {
+          // составляем массив id-шников пользователей, данные которых нужно подгрузить,
+          // избегая при этом дублей
           if (!state.userIds.includes(el.userId)) state.userIds.push(el.userId);
         });
         Promise.all(
@@ -104,18 +106,21 @@ export const postModule = {
             state.users.push(
               (await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)).data
             );
-          })
+          }) // получаем данные необходимых пользователей
         ).then(() => {
+          //, после чего дополняем массив постом также данными о пользователе, чтобы всё содержалось в одном объекте
           (response.data as IPost[]).map((el) => {
             el.user = state.users.find((elem) => elem.id === el.userId);
           });
-          commit('setPosts', response.data);
+          commit('setPosts', response.data); // присваиваем
         });
       } catch (e) {
         console.log(e);
         alert('Ошибка');
       } finally {
         setTimeout(() => {
+          // по завершению всего, loader выключается.
+          // чтобы продемонстрировать работоспособность, сделал выключение с задержкой 3 секунды
           commit('setLoading', false);
         }, 3000);
       }
@@ -129,7 +134,7 @@ export const postModule = {
             _page: state.page,
             _limit: state.limit,
           },
-        });
+        }); // действия примерно аналогичны предыдущей функции
         commit('setTotalPages', Math.ceil(response.headers['x-total-count'] / state.limit));
         (response.data as IPost[]).forEach((el) => {
           if (!state.userIds.includes(el.userId)) state.userIds.push(el.userId);

@@ -2,9 +2,9 @@
 import { $t } from '@/i18n/config';
 
 export default {
-  name: 'my-select',
   props: {
     modelValue: {
+      // текущий выбранный язык
       type: String,
     },
     options: {
@@ -14,7 +14,8 @@ export default {
   },
   methods: {
     changeOption(event) {
-      console.log(event.target.value);
+      //ловим событие изменения значения выбранного языка, и меняем modelValue (переменную,
+      //по которой осуществляется двусторонее связывание)
       this.$emit('update:modelValue', event.target.value);
     },
   },

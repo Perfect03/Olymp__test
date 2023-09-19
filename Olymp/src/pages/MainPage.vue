@@ -15,16 +15,15 @@ export default {
     PostsList,
   },
   mounted() {
+    // сразу при монтировании компонента подгружаем посты, используя action fetchPosts()
     this.fetchPosts();
   },
   computed: {
     ...mapState({
       posts: (state: IStateRoot) => state.post.posts,
-      limit: (state: IStateRoot) => state.post.limit,
     }),
     ...mapGetters({
       sortedPosts: 'post/getSortedPosts',
-      getLimit: 'post/getLimit',
     }),
   },
 };
@@ -33,7 +32,7 @@ export default {
 <template>
   <div class="content">
     <div class="posts">
-      <posts-list :posts="sortedPosts" :visitedPosts="visitedPosts"></posts-list>
+      <posts-list :posts="sortedPosts"></posts-list>
     </div>
     <u-button @click="$router.push('/posts/')" class="more">{{ $t('more') }}</u-button>
   </div>

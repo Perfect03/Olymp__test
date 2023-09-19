@@ -12,7 +12,7 @@ import { useI18n } from 'vue-i18n';
 
 const app = createApp(App, {
   setup() {
-    const { t } = useI18n();
+    const { t } = useI18n(); // объявление языковой функции
     return { t };
   },
 });
@@ -20,13 +20,9 @@ const app = createApp(App, {
 components.forEach((component) => {
   app.component(component.name, component);
 });
-
+// регистрация UI-компонентов, а также директив
 directives.forEach((directive) => {
   app.directive(directive.name, directive);
 });
 
 app.use(router).use(store).use(i18n).mount('#app');
-
-components.forEach((component) => {
-  app.component(component.name, component);
-});

@@ -4,6 +4,8 @@ import type { IUser } from '@/store/interfaces';
 import { $t } from '@/i18n/config';
 
 export default {
+  // компонент, отображающий информацию об авторе
+  // единственная логическая часть - props.user - переменная данных о пользователе
   components: {},
   props: {
     user: {

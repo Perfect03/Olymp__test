@@ -4,16 +4,18 @@ import { i18n } from '@/i18n/config';
 import type { Lang } from '@/store/types';
 
 export default {
+  // компонент-дропдаун для выбора языка
   data() {
     return {
-      languages: languages,
-      i18n: i18n,
-      show: false,
-      timerId: 0,
+      languages: languages, // массив языков, который берётся из файла @/i18n/index.ts
+      i18n: i18n, // языковая функция
+      show: false, // переменная, определяющая, виден ли список языков
+      timerId: 0, // для правильной работы появления/исчезания списка языков по hover-у
     };
   },
   methods: {
     changeLang(lang: Lang) {
+      //таким образом меняем языки
       i18n.global.locale.value = lang;
       this.show = false;
     },
@@ -21,6 +23,8 @@ export default {
       this.show = true;
       clearTimeout(this.timerId);
     },
+    //логику появления/исчезания проще описать устно, но если вкратце - используются события движения мыши.
+    //через секунду после покидания мыши дропдауна, дропдаун исчезает
     setHidden() {
       this.timerId = setTimeout(() => {
         this.show = false;

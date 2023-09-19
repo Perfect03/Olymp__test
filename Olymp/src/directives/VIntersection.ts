@@ -1,6 +1,7 @@
 import type { DirectiveBinding } from 'vue';
 
 export default {
+  // директива, выполняющая функцию binding при пролистывании пользователем страницы до элемента el
   mounted(el: HTMLElement, binding: DirectiveBinding) {
     const options = {
       rootMargin: '0px',

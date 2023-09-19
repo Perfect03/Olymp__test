@@ -6,6 +6,8 @@ export default createStore({
   getters: {},
   mutations: {},
   actions: {},
+  // state можно разбивать на модули. Хотя в данном случае модуль только один, тем не менее
+  // , продемонстрировал такую возможность
   modules: {
     post: postModule,
   },

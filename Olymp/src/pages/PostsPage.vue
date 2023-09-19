@@ -14,6 +14,7 @@ export default {
     PostsList,
   },
   mounted() {
+    // при монтировании компонента сразу подгружаем посты
     this.fetchPosts();
   },
   computed: {
@@ -30,6 +31,8 @@ export default {
 <template>
   <div class="content">
     <posts-list :posts="sortedPosts"></posts-list>
+    <!-- ниже - невидимый блок, при прокрутке к которому подгружаются следующие посты
+    используется собственная директива -->
     <div v-intersection="loadMorePosts" class="observer"></div>
   </div>
 </template>

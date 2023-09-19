@@ -1,22 +1,18 @@
 <script lang="ts">
-import { computed } from 'vue';
-import { mapState, mapGetters, mapMutations, useStore } from 'vuex';
-import { usePost } from '@/hooks/usePost';
+import { mapState, mapGetters, mapMutations } from 'vuex';
 import type { IStateRoot } from '@/store/interfaces';
 import { $t } from '@/i18n/config';
 
 export default {
   computed: {
     ...mapState({
-      posts: (state: IStateRoot) => state.post.posts,
+      // данные о текущем посте берутся из store
       currentPost: (state: IStateRoot) => state.post.currentPost,
-    }),
-    ...mapGetters({
-      posts: 'post/getPosts',
     }),
   },
   methods: {
     toAuthor() {
+      // при переходе на страничку автора нужно выполнить соответствующие действия
       this.setVisitedUsers(this.currentPost.user);
       this.$router.push('author');
     },

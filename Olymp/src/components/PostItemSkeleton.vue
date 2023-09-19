@@ -1,7 +1,6 @@
 <script lang="ts">
-import { $t } from '@/i18n/config';
-
 export default {};
+// всего-лишь компонента-скелетон поста
 </script>
 
 <template>

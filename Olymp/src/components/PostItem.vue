@@ -18,6 +18,8 @@ export default {
   },
   methods: {
     toPost(post: IPost) {
+      // в случае нажатия кнопки "Подробнее" у поста: осуществляется переход на его страницу
+      // устанавливается новое значение currentPost; пост добавляется в visitedPosts; осуществляется роутинг
       this.setCurrentPost(post);
       this.setVisitedPosts(post);
       this.$router.push(`/posts/${post.id}/`);

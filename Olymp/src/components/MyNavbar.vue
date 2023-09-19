@@ -10,19 +10,24 @@ export default {
   },
   data() {
     return {
+      // данные о возможных страницах сайта
       paths: ['posts', 'review', 'author'],
     };
   },
   methods: {
+    // можем изменять метод сортировки, поэтому нужен доступ к мутации
     ...mapMutations({
       setSelectedSort: 'post/setSelectedSort',
     }),
   },
   computed: {
     currentRoute: function () {
+      // определение текущей страницы
+      // возвращаем длину, по которой определяем, сколько строк из массива paths отобразить
       return this.$route.path.split('/').filter(Boolean).length;
     },
     ...mapState({
+      // данные о выбранном способе сортировки и возможных способах сортировки хранятся в vuex
       selectedSort: (state: IStateRoot) => state.post.selectedSort,
       sortOptions: (state: IStateRoot) => state.post.sortOptions,
     }),
@@ -43,6 +48,8 @@ export default {
       <span v-if="currentRoute" @click="$router.go(-1)" class="back">&lt; {{ $t('back') }}</span>
     </div>
     <div class="right">
+      <!-- показывается только на маршруте с номером 1 (страница постов)
+      чтобы не нарушать вёрстку, используем директиву v-show -->
       <u-select
         v-show="currentRoute == 1"
         :model-value="selectedSort"

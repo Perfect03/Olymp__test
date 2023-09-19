@@ -21,15 +21,12 @@ const routes = [
     path: '/posts/:id/',
     component: PostPage,
   },
-  {
-    path: '/posts/:id/author',
-    component: AuthorPage,
-  },
 ];
 
 const router = createRouter({
   routes,
   history: createWebHistory(),
+  // свойство ниже - для того, чтобы при переходе на новую страницу отображалась верхняя её часть
   scrollBehavior(to, from, savedPosition) {
     return { top: 0 };
   },
